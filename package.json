@@ -6,9 +6,8 @@
   "type": "module",
   "scripts": {
     "start": "node backEnd/server.js",
-    "server": "nodemon --watch backEnd/server.js",
+    "server": "nodemon backEnd/server.js",
     "client": "npm start --prefix frontEnd"
-
   },
   "repository": {
     "type": "git",
@@ -22,7 +21,8 @@
   "homepage": "https://github.com/MohamedEssaadani/SurveyShop-MERN#readme",
   "dependencies": {
     "dotenv": "^8.2.0",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "mongoose": "^5.11.9"
   },
   "devDependencies": {
     "nodemon": "^2.0.6"
