@@ -8,7 +8,7 @@ import Loader from "../components/Loader"
 import Message from "../components/Message"
 
 function ProductView({ history, match }) {
-  const [quantity, setQuantity] = useState(0)
+  const [quantity, setQuantity] = useState(1)
   const dispatch = useDispatch()
   const productDetails = useSelector((state) => state.productDetails)
   const { loading, error, product } = productDetails
