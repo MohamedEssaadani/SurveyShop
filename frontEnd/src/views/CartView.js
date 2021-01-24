@@ -1,6 +1,6 @@
 import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { Row, Col, ListGroup, Image, Form } from "react-bootstrap"
+import { Row, Col, ListGroup, Image, Form, Button } from "react-bootstrap"
 import { Link } from "react-router-dom"
 import { addToCart } from "../actions/cartActions"
 import Message from "../components/Message"
@@ -21,6 +21,10 @@ function CartView({ match, location }) {
       dispatch(addToCart(productId, qty))
     }
   }, [dispatch, productId, qty])
+
+  const removeFromCartHandler = (id) => {
+    console.log(id)
+  }
 
   return (
     <Row>
@@ -50,7 +54,11 @@ function CartView({ match, location }) {
                     <Form.Control
                       as="select"
                       value={item.quantity}
-                      onChange={(e) => setQuantity(e.target.value)}
+                      onChange={(e) =>
+                        dispatch(
+                          addToCart(item.product, Number(e.target.value))
+                        )
+                      }
                     >
                       {[...Array(item.countInStock).keys()].map((x) => (
                         <option key={x + 1} value={x + 1}>
@@ -59,15 +67,22 @@ function CartView({ match, location }) {
                       ))}
                     </Form.Control>
                   </Col>
-                  <Col md={2}></Col>
+                  <Col md={2}>
+                    <Button
+                      type="button"
+                      variant="light"
+                      onClick={() => removeFromCartHandler(item.product)}
+                    >
+                      <i className="fas fa-trash"></i>
+                    </Button>
+                  </Col>
                 </Row>
               </ListGroup.Item>
             ))}
           </ListGroup>
         )}
       </Col>
-      <Col md={2}></Col>
-      <Col md={2}></Col>
+      <Col md={4}></Col>
     </Row>
   )
 }
