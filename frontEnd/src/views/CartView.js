@@ -1,11 +1,11 @@
 import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { Row, Col, ListGroup, Image, Form, Button } from "react-bootstrap"
+import { Row, Col, ListGroup, Image, Form, Button, Card } from "react-bootstrap"
 import { Link } from "react-router-dom"
 import { addToCart } from "../actions/cartActions"
 import Message from "../components/Message"
 
-function CartView({ match, location }) {
+function CartView({ match, location, history }) {
   const productId = match.params.id
 
   //if the qty then convert the search(where u find =) => ?qty=2 to array of [?qty, 2] & get index 1 to number
@@ -22,8 +22,13 @@ function CartView({ match, location }) {
     }
   }, [dispatch, productId, qty])
 
+  //Handlers
   const removeFromCartHandler = (id) => {
     console.log(id)
+  }
+
+  const checkoutHandler = () => {
+    history.push("/login?redirect=shipping")
   }
 
   return (
@@ -82,7 +87,32 @@ function CartView({ match, location }) {
           </ListGroup>
         )}
       </Col>
-      <Col md={4}></Col>
+      <Col md={4}>
+        <Card>
+          <ListGroup>
+            <ListGroup.Item>
+              <h2>
+                Subtotal (
+                {cartItems.reduce((acc, item) => acc + item.quantity, 0)}) items
+              </h2>
+              $
+              {cartItems
+                .reduce((acc, item) => acc + item.quantity * item.price, 0)
+                .toFixed(2)}
+            </ListGroup.Item>
+            <ListGroup.Item>
+              <Button
+                type="button"
+                className="btn-block"
+                onClick={checkoutHandler}
+                disabled={!cartItems.length > 0}
+              >
+                Proceed To Checkout
+              </Button>
+            </ListGroup.Item>
+          </ListGroup>
+        </Card>
+      </Col>
     </Row>
   )
 }
