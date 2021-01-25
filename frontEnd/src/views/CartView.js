@@ -2,7 +2,7 @@ import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Row, Col, ListGroup, Image, Form, Button, Card } from "react-bootstrap"
 import { Link } from "react-router-dom"
-import { addToCart } from "../actions/cartActions"
+import { addToCart, removeFromCart } from "../actions/cartActions"
 import Message from "../components/Message"
 
 function CartView({ match, location, history }) {
@@ -24,7 +24,7 @@ function CartView({ match, location, history }) {
 
   //Handlers
   const removeFromCartHandler = (id) => {
-    console.log(id)
+    dispatch(removeFromCart(id))
   }
 
   const checkoutHandler = () => {
