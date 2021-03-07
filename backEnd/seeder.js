@@ -1,4 +1,3 @@
-import mongoose from "mongoose"
 import dotenv from "dotenv"
 import User from "./models/user.js"
 import Product from "./models/product.js"
