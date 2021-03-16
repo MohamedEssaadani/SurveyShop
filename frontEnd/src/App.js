@@ -2,9 +2,10 @@ import { Container } from "react-bootstrap"
 import { BrowserRouter as Router, Route } from "react-router-dom"
 import Header from "./components/Header.js"
 import Footer from "./components/Footer.js"
-import HomeView from "./views/HomeView"
-import ProductView from "./views/ProductView"
-import CartView from "./views/CartView"
+import HomeScreen from "./screens/HomeScreen"
+import ProductScreen from "./screens/ProductScreen"
+import CartScreen from "./screens/CartScreen"
+import LoginScreen from "./screens/LoginScreen"
 
 function App() {
   return (
@@ -12,9 +13,10 @@ function App() {
       <Header />
       <main className="py-3">
         <Container>
-          <Route path="/" exact component={HomeView} />
-          <Route path="/product/:id" component={ProductView} />
-          <Route path="/cart/:id?" component={CartView} />
+          <Route path="/login" component={LoginScreen} />
+          <Route path="/" exact component={HomeScreen} />
+          <Route path="/product/:id" component={ProductScreen} />
+          <Route path="/cart/:id?" component={CartScreen} />
         </Container>
       </main>
       <Footer />
