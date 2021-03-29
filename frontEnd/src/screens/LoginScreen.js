@@ -1,13 +1,29 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
+import { useSelector, useDispatch } from "react-redux"
 import { Container, Form, Card, Row, Col, Button } from "react-bootstrap"
+import { Link } from "react-router-dom"
+import { login } from "../actions/userActions"
+import Message from "../components/Message"
+import Loader from "../components/Loader"
 
-function LoginScreen() {
+function LoginScreen({ history, location }) {
+  const dispatch = useDispatch()
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
+  const { loading, error, userInfo } = useSelector((state) => state.userLogin)
+
+  const redirect = location.search ? location.search.split("=")[1] : "/"
+
+  useEffect(() => {
+    if (userInfo) {
+      history.push(redirect)
+    }
+  }, [history, userInfo, redirect])
+
   const handleSubmit = (e) => {
     e.preventDefault()
-    //dispatch login action
+    dispatch(login(email, password))
   }
 
   return (
@@ -15,8 +31,10 @@ function LoginScreen() {
       <Row className="justify-content-md-center">
         <Col xs={12} md={6}>
           <Card className="p-3">
+            {error && <Message variant="danger" text={error} />}
+            {loading && <Loader />}
             <Card.Title>
-              <h2>Sign In</h2>
+              <h3>Sign in</h3>
             </Card.Title>
             <Card.Body>
               <Form onSubmit={handleSubmit}>
@@ -38,11 +56,26 @@ function LoginScreen() {
                     onChange={(e) => setPassword(e.target.value)}
                   ></Form.Control>
                 </Form.Group>
-                <Button type="submit" variant="primary">
+                <Button type="submit" variant="primary" block>
                   Sign In
                 </Button>
               </Form>
             </Card.Body>
+            <Card.Footer>
+              <Link
+                to={
+                  redirect
+                    ? `/forgot-password?redirect=${redirect}`
+                    : "/forgot-password"
+                }
+              >
+                Forgot Password?.
+              </Link>
+              <Link to={redirect ? `/signup?redirect=${redirect}` : "/signup"}>
+                {" "}
+                Sign Up
+              </Link>
+            </Card.Footer>
           </Card>
         </Col>
       </Row>
