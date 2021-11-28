@@ -5,7 +5,7 @@ import { Link } from "react-router-dom"
 import { addToCart, removeFromCart } from "../actions/cartActions"
 import Message from "../components/Message"
 
-function CartView({ match, location, history }) {
+function CartScreen({ match, location, history }) {
   const productId = match.params.id
 
   //if the qty then convert the search(where u find =) => ?qty=2 to array of [?qty, 2] & get index 1 to number
@@ -117,4 +117,4 @@ function CartView({ match, location, history }) {
   )
 }
 
-export default CartView
+export default CartScreen
